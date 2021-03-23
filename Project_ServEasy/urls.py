@@ -16,11 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from Home.views import home
-from Auth.views import login_page
+from Auth.views import customer_login, customer_login_verification, customer_logout
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('demo', demo, name="demo"),
-    path('', home, name="home"),
-    path('login_page/',login_page , name="login_page"),
+    path('', home, name="home"), #returns dry Home page
+    path('verified/<cid>/', home, name="verified_home"),  # returns home page for the corresponding customer
+    path('customer_login/',customer_login , name="customer_login"), # returns login page
+    path('customer_login_verification/',customer_login_verification , name="customer_login_verification"), # redirects to Home Page if login is verified otherwise same page will be rendered again
+    path('logout/',customer_logout , name="customer_logout"), # redirects to dry Home page
+    path('customer_signup/',customer_logout , name="customer_signup"),
 ]
