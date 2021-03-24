@@ -1,22 +1,23 @@
 <!DOCTYPE html>
-<!-- {% load static %} -->
-<html xmlns:text-align="http://www.w3.org/1999/xhtml">
+{% load static %}
+<html>
 
 <head>
 	<meta charset="utf-8">
+	<title>Sign Up</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Login</title>
 	<!-- Google Font -->
 	<link href='http://fonts.googleapis.com/css?family=Dosis:300,400,500,600,700,800' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 
 	<!-- Font Awesome -->
+
+
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
 	<!-- Preloader -->
-	<!-- <link rel="stylesheet" href="{% static 'css/preloader.css' %}" type="text/css" media="screen, print"/> -->
 	<link rel="stylesheet" href="{% static 'Auth/css/preloader.css' %}" type="text/css" media="screen, print" />
 
 	<!-- Icon Font-->
@@ -37,6 +38,9 @@
 	<!-- Responsive CSS -->
 	<link href="{% static 'Auth/css/responsive.css' %}" rel="stylesheet">
 
+	<!-- LINEARICONS -->
+	<link rel="stylesheet" href="{% static 'Auth/fonts1/linearicons/style.css' %}">
+
 	<!-- STYLE CSS -->
 	<link rel="stylesheet" href="{% static 'Auth/css1/style.css' %}">
 </head>
@@ -50,10 +54,10 @@
 					<div class="navbar-header">
 						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
 							data-target="#bs-example-navbar-collapse-1">
-							<!-- <span class="sr-only">Toggle Navigation</span> -->
-							<!-- <span class="icon-bar"></span> -->
-							<!-- <span class="icon-bar"></span> -->
-							<!-- <span class="icon-bar"></span> -->
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
 						</button>
 						<a class="navbar-brand"><img src="{% static 'Auth/images/servEasy_logo.jpeg' %}" height="50px"
 								width="170px" alt=""></a>
@@ -62,15 +66,13 @@
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav navbar-right">
-							<!-- All the sections of navigation bar  -->
 							<li><a href="{% url 'home' %}">Home</a></li>
-							<li><a href="{% url 'customer_signup' %}">Sign Up</a></li>
-							<!-- <li><a href="events">Bookings</a></li> -->
-							<!-- <li><a href="contact">Contact</a></li> -->
+							<li><a href="{% url 'customer_login' %}">Login</a></li>
 						</ul>
 					</div><!-- /.navbar-collapse -->
 				</div><!-- /.container -->
 			</nav>
+
 
 		</div>
 		</section>
@@ -79,31 +81,39 @@
 	<div class="wrapper">
 		<div class="inner">
 			<img src="{% static 'Auth/images1/image-1.png' %}" alt="" class="image-1">
-			<!-- User SignIn Form 	 -->
-			<form action="{% url 'customer_login_verification' %}" method='POST'>
-				<!--   Verify User's Email and Password -->
-
-				<!-- Welcome Messages being Displayed -->
+			<form action="{% url 'customer_signup_verification' %}" method='POST'>
 				<h4 style="color:red;text-align:center">{{welcome1}}</h4>
 				<h3>{{welcome2}}</h3>
-				<!-- {% url 'customer_login_verification' %} -->
-				<!-- <h3>{{request.user}}</h3> -->
+				<div class="form-holder">
+					<span class="lnr lnr-user"></span>
+					{% csrf_token %}
+					<input type="text" class="form-control" placeholder="Full Name" name="name">
+					<h5 style="color:red;text-align:right">{{e1}}</h5>
+				</div>
+				<div class="form-holder">
+					<span class="lnr lnr-phone-handset"></span>
+					<input type="text" class="form-control" placeholder="Phone Number" name="phn">
+					<h5 style="color:red;text-align:right">{{e2}}</h5>
+				</div>
 				<div class="form-holder">
 					<span class="lnr lnr-envelope"></span>
-					{% csrf_token %}
-					<!-- Getting Mail of the User -->
+					<input type="text" class="form-control" placeholder="Address" name="address">
+					<h5 style="color:red;text-align:right">{{e3}}</h5>
+				</div>
+				<div class="form-holder">
+					<span class="lnr lnr-envelope"></span>
 					<input type="text" class="form-control" placeholder="Mail" name="mail">
+					<h5 style="color:red;text-align:right">{{e4}}</h5>
 				</div>
 				<div class="form-holder">
 					<span class="lnr lnr-lock"></span>
-					<!-- Getting Password of the User -->
 					<input type="password" class="form-control" placeholder="Password" name="pwd">
+					<h5 style="color:red;text-align:right">{{e5}}</h5>
 				</div>
 				<button>
-					<span>Sign In</span> <!-- Signin Button -->
+					<span>Register</span>
 				</button>
 			</form>
-			<!-- Getting -->
 			<img src="{% static 'Auth/images1/image-2.png' %}" alt="" class="image-2">
 		</div>
 

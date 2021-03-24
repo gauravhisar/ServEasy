@@ -53,7 +53,7 @@
           <li><a class="nav-link scrollto " href="{% url 'customer_signup' %}">Signup</a></li>
           <li><a class="nav-link scrollto" href="{% url 'customer_login' %}">Login</a></li>
           {%else%}
-          <li><a class="nav-link scrollto" href="{% url 'customer_logout'  %}">Logout</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'customer_logout' loggedin %}">Logout</a></li>
           {% endif %}
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -322,7 +322,7 @@
 
           <div class="col-lg-8 mt-5 mt-lg-0">
 
-            <form action="" method="post" role="form" class="php-email-form">
+            <form action="{% url 'home' %}" method="post" role="form" class="php-email-form">
               <div class="row">
                 <div class="col-md-6 form-group">
                   <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
@@ -368,6 +368,9 @@
 
   <!-- Template Main JS File -->
   <script src="{% static 'Home/js/main.js' %}"></script>
+  <script>
+
+  </script>
 
 </body>
 
