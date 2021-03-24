@@ -4,7 +4,7 @@ from Auth.models import Customer, loggedin_userid
 from Home.models import Booking
 
 # Create your views here.
-def home(request, *args, **kwargs): # {'cid': 45}
+def home(request, *args, **kwargs): # {'cid': 45}  WRITE IN TRY EXCEPT FORM 
 		if len(kwargs) == 0: 
 			return render(request, "index.html", {"loggedin": False})
 		else:

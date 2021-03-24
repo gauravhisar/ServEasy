@@ -18,17 +18,22 @@ from django.urls import path
 from Home.views import electricians, carpenters, salonForMen, plumbers, BeauticiansForWomen, bookings
 #from Auth.views import login_page
 from Home.views import home
-from Auth.views import customer_login, customer_login_verification, customer_logout
+from Auth.views import customer_login, customer_login_verification,customer_signup_verification, customer_logout, customer_signup
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name="home"), #returns dry Home page
     path('verified/<cid>/', home, name="verified_home"),  # returns home page for the corresponding customer
+   
+    # Authentication Pages
     path('customer_login/',customer_login , name="customer_login"), # returns login page
     path('customer_login_verification/',customer_login_verification , name="customer_login_verification"), # redirects to Home Page if login is verified otherwise same page will be rendered again
-    path('logout/',customer_logout , name="customer_logout"), # redirects to dry Home page
-    path('customer_signup/',customer_logout , name="customer_signup"),
+    path('customer_signup/',customer_signup , name="customer_signup"), # returns signup page
+    path('customer_signup_verification/',customer_signup_verification , name="customer_signup_verification"), # redirects to Home Page after verifying signup page, otherwise renders signup ppage again
+    path('logout/<cid>/',customer_logout , name="customer_logout"), # redirects to dry Home page
+
+    # Services  (5)   
     path('electricians/', electricians ,name="electricians"),
     path('verified/<cid>/electricians/', electricians, name="electricians"),
     path('carpenters/', carpenters ,name="carpenters"),

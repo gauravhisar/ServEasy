@@ -50,7 +50,7 @@
           <!-- <li><a class="nav-link scrollto" href="#counts">Some facts about us</a></li> -->
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
           {% if loggedin %}
-            <li><a class="nav-link scrollto" href="{% url 'customer_logout'  %}">Logout</a></li>
+            <li><a class="nav-link scrollto" href="{% url 'customer_logout' loggedin  %}">Logout</a></li>
           {% endif %}
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -79,7 +79,7 @@
           <div class="col-xl-2 col-md-4">
             <div class="icon-box">
               <i class="ri-calendar-todo-line"></i>
-              <h3><a href="{% url 'customer_login' %}">I'am a customer</a></h3>
+              <h3><a href="{% url 'customer_login' %}">I'm a customer</a></h3>
             </div>
           </div>
           <div class="col-xl-2 col-md-4">
@@ -325,7 +325,7 @@
 
           <div class="col-lg-8 mt-5 mt-lg-0">
 
-            <form action="" method="post" role="form" class="php-email-form">
+            <form action="{% url 'home' %}" method="post" role="form" class="php-email-form">
               <div class="row">
                 <div class="col-md-6 form-group">
                   <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
@@ -371,6 +371,9 @@
 
   <!-- Template Main JS File -->
   <script src="{% static 'Home/js/main.js' %}"></script>
+  <script>
+
+  </script>
 
 </body>
 
