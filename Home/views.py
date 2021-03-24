@@ -18,3 +18,76 @@ def home(request, *args, **kwargs): # {'cid': 45}  WRITE IN TRY EXCEPT FORM
 			return render(request, "index.html", {"loggedin": kwargs['cid'], "user": mycustomer.c_name})
 
 
+def electricians(request, *args, **kwargs):
+		if len(kwargs) == 0: 
+			return render(request, "elec.html", {"loggedin": False})
+		else:
+			try: 
+				mycustomer = Customer.objects.get(cid = kwargs['cid'])
+			except: 
+				return render(request, "elec.html", {"loggedin": False})
+
+			if not mycustomer.loggedin:
+				return render(request, "elec.html", {"loggedin": False})
+
+			return render(request, "elec.html", {"loggedin": kwargs['cid'], "user": mycustomer.c_name})
+
+def carpenters(request, *args, **kwargs):
+		if len(kwargs) == 0: 
+			return render(request, "carp.html", {"loggedin": False})
+		else:
+			try: 
+				mycustomer = Customer.objects.get(cid = kwargs['cid'])
+			except: 
+				return render(request, "carp.html", {"loggedin": False})
+
+			if not mycustomer.loggedin:
+				return render(request, "carp.html", {"loggedin": False})
+
+			return render(request, "salonForMen.html", {"loggedin": kwargs['cid'], "user": mycustomer.c_name})
+
+def salonForMen(request, *args, **kwargs):
+		if len(kwargs) == 0: 
+			return render(request, "salonForMen.html", {"loggedin": False})
+		else:
+			try: 
+				mycustomer = Customer.objects.get(cid = kwargs['cid'])
+			except: 
+				return render(request, "salonForMen.html", {"loggedin": False})
+
+			if not mycustomer.loggedin:
+				return render(request, "salonForMen.html", {"loggedin": False})
+
+			return render(request, "salonForMen.html", {"loggedin": kwargs['cid'], "user": mycustomer.c_name})
+
+def plumbers(request, *args, **kwargs):
+		if len(kwargs) == 0: 
+			return render(request, "plumbers.html", {"loggedin": False})
+		else:
+			try: 
+				mycustomer = Customer.objects.get(cid = kwargs['cid'])
+			except: 
+				return render(request, "plumbers.html", {"loggedin": False})
+
+			if not mycustomer.loggedin:
+				return render(request, "plumbers.html", {"loggedin": False})
+
+			return render(request, "plumbers.html", {"loggedin": kwargs['cid'], "user": mycustomer.c_name})
+
+def BeauticiansForWomen(request, *args, **kwargs):
+		if len(kwargs) == 0: 
+			return render(request, "beauticiansForWomen.html", {"loggedin": False})
+		else:
+			try: 
+				mycustomer = Customer.objects.get(cid = kwargs['cid'])
+			except: 
+				return render(request, "beauticiansForWomen.html", {"loggedin": False})
+
+			if not mycustomer.loggedin:
+				return render(request, "beauticiansForWomen.html", {"loggedin": False})
+
+			return render(request, "beauticiansForWomen.html", {"loggedin": kwargs['cid'], "user": mycustomer.c_name})
+
+def bookings(request, *args, **kwargs):
+	mycustomer = Customer.objects.get(cid = kwargs['cid'])
+	return render(request, "bookings.html", {"loggedin": kwargs['cid'], "user":mycustomer.c_name})
