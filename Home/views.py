@@ -1,6 +1,7 @@
 #https://www.toptal.com/django/django-top-10-mistakes
 from django.shortcuts import render
 from Auth.models import Customer, loggedin_userid
+from Home.models import Booking
 
 # Create your views here.
 def home(request, *args, **kwargs): # {'cid': 45}
@@ -88,6 +89,8 @@ def BeauticiansForWomen(request, *args, **kwargs):
 
 			return render(request, "beauticiansForWomen.html", {"loggedin": kwargs['cid'], "user": mycustomer.c_name})
 
-def bookings(request, *args, **kwargs):
-	mycustomer = Customer.objects.get(cid = kwargs['cid'])
-	return render(request, "bookings.html", {"loggedin": kwargs['cid'], "user":mycustomer.c_name})
+def bookings(request):
+	#mycustomer = Customer.objects.get(cid = kwargs['cid'])
+	myBookings=Booking.objects.all()
+	bnum={"bookin_number":myBookings}
+	return render(request, "bookings.html", bnum)
