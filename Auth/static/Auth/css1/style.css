@@ -45,7 +45,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  background:rgba(220,149,112, 0.25); }
+  background:rgba(13, 13, 14, 0.664); }
 
 .inner {
   position: relative;

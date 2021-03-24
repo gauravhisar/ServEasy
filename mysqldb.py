@@ -104,6 +104,7 @@ class Customer(models.Model):
     address = models.CharField(max_length=75)
     c_name = models.CharField(max_length=75)
     contact_no = models.CharField(max_length=11)
+    loggedin = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
