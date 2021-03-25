@@ -13,6 +13,7 @@ class Customer(models.Model):
     contact_no = models.CharField(max_length=11)
     loggedin = models.IntegerField(blank=True, null=True)
 
+    
     class Meta:
         managed = True
         db_table = 'customer'

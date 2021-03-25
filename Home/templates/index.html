@@ -37,17 +37,15 @@
   <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center justify-content-lg-between">
 
-      <h1 class="logo me-auto me-lg-0"><a href="index.html">Serv<span>Easy</span></a></h1>
+      <h1 class="logo me-auto me-lg-0"><a href="">Serv<span>Easy</span></a></h1>
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
           <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
           <li><a class="nav-link scrollto" href="#services">Services</a></li>
           {% if loggedin %}
-          <li><a class="nav-link scrollto" href="bookings">Bookings</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'bookings' loggedin %}">Bookings</a></li>
           {% endif %}
           <li><a class="nav-link scrollto" href="#about">About Us</a></li>
-          <!-- <li><a class="nav-link scrollto " href="#clients">Popular Service Providers</a></li> -->
-          <!-- <li><a class="nav-link scrollto" href="#counts">Some facts about us</a></li> -->
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
           {% if loggedin %}
             <li><a class="nav-link scrollto" href="{% url 'customer_logout' loggedin  %}">Logout</a></li>
@@ -125,7 +123,7 @@
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
             <div class="icon-box">
               <div class="icon"><i class="bx bx-tachometer"></i></div>
-              <h4><a href="electricians">Electricians</a></h4>
+              <h4><a href="services/electricians">Electricians</a></h4>
               <p>Repairing home appliances and commercial machinery, wiring and installation jobs</p>
             </div>
           </div>
@@ -133,7 +131,7 @@
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
             <div class="icon-box">
               <div class="icon"><i class="bx bxl-dribbble"></i></div>
-              <h4><a href="carpenters">Carpenters</a></h4>
+              <h4><a href="services/carpenters">Carpenters</a></h4>
               <p>Repairing a table, chair, sofa, etc and making customised furniture</p>
             </div>
           </div>
@@ -149,7 +147,7 @@
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
             <div class="icon-box">
               <div class="icon"><i class="bx bx-slideshow"></i></div>
-              <h4><a href="plumbers">Plumbing</a></h4>
+              <h4><a href="services/plumbers">Plumbing</a></h4>
               <p>Repairing pipelines, installing new equipments and sanitary work</p>
             </div>
           </div>
@@ -157,7 +155,7 @@
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
             <div class="icon-box">
               <div class="icon"><i class="bx bx-arch"></i></div>
-              <h4><a href="BeauticiansForWomen">Beauticians for women</a></h4>
+              <h4><a href="services/BeauticiansForWomen">Beauticians for women</a></h4>
               <p>Bridal Makeup, bleeching, waxing, massaging, manicure, pedicure, etc</p>
             </div>
           </div>
@@ -173,7 +171,7 @@
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
             <div class="icon-box">
               <div class="icon"><i class="bx bx-arch"></i></div>
-              <h4><a href="salonForMen">Salon for men</a></h4>
+              <h4><a href="services/salonForMen">Salon for men</a></h4>
               <p>Haircutting, trimming beard, bleeching, facial, hair colouring etc</p>
             </div>
           </div>

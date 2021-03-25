@@ -169,6 +169,7 @@ class Service(models.Model):
     sid = models.IntegerField(primary_key=True)
     category = models.CharField(max_length=5)
     dscrptn = models.CharField(max_length=300, blank=True, null=True)
+    price = models.IntegerField()
 
     class Meta:
         managed = False

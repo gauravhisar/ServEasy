@@ -1,0 +1,209 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  
+  <title>{% block title %}Service{%endblock%}</title>
+  
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'Home/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'Home/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'Home/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'Home/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'Home/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'Home/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'Home/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'Home/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'Home/css/style.css' %}" rel="stylesheet">
+
+  <style>
+    #service_booking{
+        border: 1px solid black;
+        padding: 1px 10px;
+        background-color: whitesmoke;
+        
+      }
+      #service_booking:hover {
+        background-color: rgb(236, 214, 214);
+        cursor: pointer;
+        
+      }
+      
+     #login_first{
+        color: red;
+        margin-top:3px; 
+        font-size:medium;
+      }
+  </style>
+</head>
+
+
+<!--body starts-->
+<body>
+    <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top " style="background-color: rgba(0, 0, 0, 0.8); ">
+    <div class="container d-flex align-items-center justify-content-lg-between">
+
+      <h1 class="logo me-auto me-lg-0"><a href="">Serv<span>Easy</span></a></h1>
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          {% if loggedin %}
+          <li><a class="nav-link scrollto active" href="{% url 'verified_home' loggedin %}">Home</a></li>
+          <li><a class="nav-link scrollto active" href="{% url 'bookings' loggedin %}">Bookings</a></li>
+          <li><a class="nav-link scrollto active" href="{% url 'customer_logout' loggedin  %}">Logout</a></li>
+          {% else %}
+          <li><a class="nav-link scrollto active" href="{% url 'home' %}">HOME</a></li>
+          <li><a class="nav-link scrollto active" href="{% url 'customer_login' %}">LOGIN</a></li>
+          <li><a class="nav-link scrollto active" href="{% url 'customer_signup' %}">SIGNUP</a></li>
+          {% endif %}
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+      {% if loggedin %}
+      <a  class="get-started-btn scrollto">Hello, {{user}}</a>
+      {% endif %}
+
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+    <div id="repair">
+        <!-- ======= Breadcrumbs ======= -->
+        <section id="breadcrumbs" class="breadcrumbs">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+            <!-- <h2>Electricians</h2> -->
+            <ol>
+                <h3><a href="">{% block header %}Service{%endblock%}</a></h3>
+            </ol>
+            </div>
+
+        </div>
+        </section><!-- End Breadcrumbs -->
+
+        <!-- ======= Portfolio Details Section ======= -->
+        <section id="portfolio-details" class="portfolio-details">
+        <div class="container">
+
+            <div class="row gy-4">
+
+            <div class="col-lg-8">
+                <div class="portfolio-details-slider swiper-container">
+                <div class="swiper-wrapper align-items-center">
+
+
+                    <div class="swiper-slide">
+                    <img {%block img1 %}{%endblock%} alt="">
+                    </div>
+
+                    <div class="swiper-slide">
+                    <img {%block img2 %}{%endblock%}  alt="">
+                    </div>
+
+                    <div class="swiper-slide">
+                    <img {%block img3 %}{%endblock%} alt="">
+                    </div>
+
+                </div>
+                <div class="swiper-pagination"></div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="portfolio-info">
+                <h3>Services Available</h3>
+                {% if loggedin %}
+                <form name = "services-form" action="{% url 'verify_booking' loggedin servicename %}" method = "POST">
+                {%else%}
+                <form name = "services-form" action="" method = "POST">
+                {% endif %}    
+                    
+                    {% csrf_token %}
+                    {% for o in service_req%}
+                    <div class = "service-details" name = "service_detail{{forloop.counter}}">
+                    <input type="checkbox" class = "service-checkbox" name="service{{ forloop.counter }}" value={{o.sid}}>
+                        <!-- service{{ forloop.counter }} -->
+                        <span class = "service--description">{{o.dscrptn}}</span>
+                        <p class = "service--price">
+                            <span>Price: ₹ </span>
+                            <span name = "priceof_{{forloop.counter}}" class="priceofeachservice">{{o.price}}</span>
+                        </p>
+                    </div><br>
+                    {%endfor%}                    
+                    <p id = "total"><span>Total Cost: ₹ </span><span id="totalcost">0</span></p>
+                    <input id = 'service_booking'type="submit" value="Book Now">
+
+                    {% if not loggedin%}
+                    <p id = 'login_first'>Please Login First</p>
+                    <!-- <p id = 'login_first'>{{loginfirst}}</p> -->
+
+                    <!-- <span id = 'service_booking'>Book Now</span> -->
+                    {% endif%}
+                  </form>
+            </div>
+
+            </div>
+
+        </div>
+    </div>
+    </section><!-- End Portfolio Details Section -->
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'Home/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'Home/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'Home/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'Home/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'Home/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'Home/vendor/purecounter/purecounter.js' %}"></script>
+  <script src="{% static 'Home/vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'Home/js/main.js' %}"></script>
+  <script>
+    const scheckboxes = document.querySelectorAll(".service-checkbox");
+    //const prices = document.querySelectorAll('.priceofeachservice');
+    var i;
+    var tcost = 0;
+
+    for(i = 0;i<scheckboxes.length;i++){
+      scheckboxes[i].addEventListener("change", validate_checkbox)
+      console.log(scheckboxes[i].checked)
+    }
+    function validate_checkbox(){
+      var serviceIndex = Number(this.name.charAt(this.name.length - 1))
+      console.log(serviceIndex)
+      
+      const price = Number(document.getElementsByName("priceof_" + serviceIndex)[0].innerHTML);
+
+      if (scheckboxes[serviceIndex - 1].checked){
+        tcost = tcost +  price;
+        console.log(tcost, price);
+      }
+      else{
+        tcost = tcost - price;
+        console.log(tcost);
+      }
+      const totalcost = document.querySelector('#totalcost');
+      totalcost.innerHTML = tcost
+    }
+
+  </script>
+</body>
+
+</html>
