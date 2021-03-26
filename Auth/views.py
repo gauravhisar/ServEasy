@@ -5,7 +5,7 @@ from Auth.models import Customer
 # Create your views here.
 loggedin_userid = None # Not of any use, will remove it later
 def customer_login(request, *args, **kwargs): # when we want to login this page will be displayed
-	return render(request, "login.html", {"welcome1": "", "welcome2": "Customer Login"})
+	return render(request, "login.html", {"welcome1": "", "welcome2": "Customer Login", 'welcome3': ''})
 def customer_signup(request, *args, **kwargs): # when we want to singup this page will be displayed
 	# # Testing Code
 	# try:
@@ -21,9 +21,9 @@ def customer_login_verification(request): # when someone enters details and pres
 	try:
 		mycustomer = Customer.objects.get(email = email)
 	except : 
-		return render(request, 'login.html', {'welcome1': 'Incorrect Email.', 'welcome2': 'Customer Login'})
+		return render(request, 'login.html', {'welcome1': 'Incorrect Email.', 'welcome2': 'Customer Login', 'welcome3': 'New User? Please signup first!'})
 	if mycustomer.pwd != pwd:
-		return render(request, 'login.html', {'welcome1': 'Incorrect Password', 'welcome2': 'Customer Login'})
+		return render(request, 'login.html', {'welcome1': 'Incorrect Password', 'welcome2': 'Customer Login', 'welcome3': ''})
 	else:
 		global loggedin_userid
 		loggedin_userid = mycustomer.cid

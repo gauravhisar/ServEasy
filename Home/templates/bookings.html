@@ -43,13 +43,14 @@
       <h1 class="logo me-auto me-lg-0"><a href="">Serv<span>Easy</span></a></h1>
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="nav-link scrollto active" href="/">Home</a></li>
+          <li><a class="nav-link scrollto active" href="{% url 'verified_home' loggedin %}">Home</a></li>
+          <li><a class="nav-link scrollto active" href="{% url 'customer_logout' loggedin  %}">Logout</a></li>
           <!--<li><a class="nav-link scrollto" href="#services">Services</a></li>
           {% if loggedin %}
           <li><a class="nav-link scrollto" href="#services">Bookings</a></li>
           {% endif %}-->
-          <li><a class="nav-link scrollto" href="/#about">About Us</a></li>
-          <li><a class="nav-link scrollto" href="/#contact">Contact</a></li>
+          <!-- <li><a class="nav-link scrollto" href="/#about">About Us</a></li>
+          <li><a class="nav-link scrollto" href="/#contact">Contact</a></li> -->
          
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -71,10 +72,12 @@
             <table class="content-table">
                 <thead>
                   <tr>
+                    <th style="color:rgb(241, 182, 103)">Date</th>
                     <th style="color:rgb(241, 182, 103)">Timing</th>
                     <th style="color:rgb(241, 182, 103)">Status</th>
                     <th style="color:rgb(241, 182, 103)">Category</th>
                     <th style="color:rgb(241, 182, 103)">Description</th>
+                    <th style="color:rgb(241, 182, 103)">Service Provider</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -85,10 +88,12 @@
                     <tr>
                     <!--<td><b style="color:black">{{eve.ev_id}}</b></td>-->
                     <!--<td><b style="color:white" style="align-self: center;">{{eve.bid}}</b></td>-->
+                    <td><b style="color:white" style="align-self: center;">{{eve.bdate}}</b></td>
                     <td><b style="color:white" style="align-self: center;">{{eve.timing}}</b></td>
                     <td><b style="color:white" style="align-self: center;">{{eve.status}}</b></td>
                     <td><b style="color:white" style="align-self: center;">{{eve.category}}</b></td>
                     <td><b style="color:white" style="align-self: center;">{{eve.dscrptn}}</b></td>
+                    <td><b style="color:white" style="align-self: center;">{{eve.sp_name}}</b></td>
                     <!-- <td><b style="color:white">{{eve.category}}</b></td>
                     <td><b style="color:white">{{eve.status}}</b></td> -->
                     </tr>

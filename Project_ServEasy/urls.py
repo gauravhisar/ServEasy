@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from Home.views import electricians, carpenters, salonForMen, plumbers, BeauticiansForWomen, bookings
+from Home.views import  bookings,verify_booking, booking_done,service_details #, electricians, carpenters, salonForMen, plumbers, BeauticiansForWomen,
 #from Auth.views import login_page
 from Home.views import home
 from Auth.views import customer_login, customer_login_verification,customer_signup_verification, customer_logout, customer_signup
@@ -34,16 +34,17 @@ urlpatterns = [
     path('logout/<cid>/',customer_logout , name="customer_logout"), # redirects to dry Home page
 
     # Services  (5)   
-    path('electricians/', electricians ,name="electricians"),
-    path('verified/<cid>/electricians/', electricians, name="electricians"),
-    path('carpenters/', carpenters ,name="carpenters"),
-    path('verified/<cid>/carpenters/', carpenters, name="carpenters"),
-    path('salonForMen/', salonForMen ,name="salonForMen"),
-    path('verified/<cid>/salonForMen/', salonForMen, name="salonForMen"),
-    path('plumbers/', plumbers ,name="plumbers"),
-    path('verified/<cid>/plumbers/', plumbers, name="plumbers"),
-    path('BeauticiansForWomen/', BeauticiansForWomen ,name="BeauticiansForWomen"),
-    path('verified/<cid>/BeauticiansForWomen/', BeauticiansForWomen, name="BeauticiansForWomen"),
-    #path('bookings/', bookings ,name="bookings"),
-    path('verified/<cid>/bookings/', bookings, name="bookings"),
+    path('services/<servicename>/', service_details ,name="service"),
+    path('verified/<cid>/services/<servicename>/', service_details, name="service"),
+    
+    # Service booking of customer
+    path('/verifybooking/<servicename>', verify_booking, name = "verify_booking"),
+    path('verified/<cid>/verifybooking/<servicename>/', verify_booking, name = "verify_booking"), # returns booking done html
+    path('verified/<cid>/booked/', booking_done, name = "booking_done"), #redirects to home page 
+
+    #Displaying Bookings of Customer
+    # path('bookings/', bookings ,name="bookings"),   
+    path('verified/<cid>/bookings/', bookings, name="bookings"), # returns booking page
+    
+
 ]
