@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from Home.views import  bookings,verify_booking, booking_done,service_details #, electricians, carpenters, salonForMen, plumbers, BeauticiansForWomen,
+from Home.views import  bookings,verify_booking,service_details #, electricians, carpenters, salonForMen, plumbers, BeauticiansForWomen,
 #from Auth.views import login_page
 from Home.views import home
 from Auth.views import customer_login, customer_login_verification,customer_signup_verification, customer_logout, customer_signup
@@ -38,9 +38,8 @@ urlpatterns = [
     path('verified/<cid>/services/<servicename>/', service_details, name="service"),
     
     # Service booking of customer
-    path('/verifybooking/<servicename>', verify_booking, name = "verify_booking"),
-    path('verified/<cid>/verifybooking/<servicename>/', verify_booking, name = "verify_booking"), # returns booking done html
-    path('verified/<cid>/booked/', booking_done, name = "booking_done"), #redirects to home page 
+    path('verifybooking/<servicename>', verify_booking, name = "verify_booking"),# its is of no use, added this so that we donot get error
+    path('verified/<cid>/verifybooking/<servicename>/', verify_booking, name = "verify_booking"), # redirects to booking page
 
     #Displaying Bookings of Customer
     # path('bookings/', bookings ,name="bookings"),   

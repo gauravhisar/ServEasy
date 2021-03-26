@@ -1,14 +1,12 @@
 #https://www.toptal.com/django/django-top-10-mistakes
+import random
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound
-from Auth.models import Customer, loggedin_userid
 from Home.models import *
-from django.shortcuts import render
-from django.http import HttpResponse
 from django.template import loader
 from django.db import connection
+from datetime import date,datetime
 
-from Home.models import Service, service_to_category
 # Create your views here.
 def home(request, *args, **kwargs): # {'cid': 45}  
 		if len(kwargs) == 0: 
@@ -89,7 +87,7 @@ def bookings(request, *args, **kwargs):
 		for i in range(len(row)):
 			objects[i].bid=row[i][0]
 			objects[i].timing=row[i][1]
-			objects[i].status =row[i][2]
+			objects[i].status = codetostatus[row[i][2]]
 			objects[i].category = category_to_service[row[i][3]]
 			objects[i].dscrptn = row[i][4]
 			objects[i].sp_name = row[i][5]
@@ -110,10 +108,36 @@ def bookings(request, *args, **kwargs):
 	# return render(request, "bookings.html", {"loggedin": kwargs['cid'], "user":mycustomer.c_name})
 
 def verify_booking(request, *args, **kwargs):
-	l = []
-	for i in request.POST:
-		l.append([i, request.POST[i]])
-	return HttpResponse(str(l))
-def booking_done(request, *args, **kwargs): #redirects tp home page only
-	pass
+	if len(request.POST) == 1: #no services selected
+		return redirect(service_details, cid = kwargs['cid'], servicename = kwargs['servicename'] )
+
+	
+	bcategory = service_to_category[kwargs['servicename']]
+	bdate = date.today()
+	btime = datetime.now().strftime("%H%M")   # service will be available with half hour
+	bstatus = 'B'
+	bcustomer = Customer.objects.get(cid = kwargs['cid'])
+	bservices = list(dict(request.POST).values())
+	bservices.pop(0)
+	assigned_sp = Serviceprovider.objects.filter(category__exact = bcategory)
+	assigned_sp = assigned_sp[random.randint(0,len(assigned_sp)-1)]
+	bservices = [int(x[0]) for x in bservices]
+	
+	# find total amount
+	amount = 0
+	req_services = []  # in Service Object Format used in creating bookedfor objects
+	for i in bservices:
+		req_services.append(Service.objects.get(sid = i))
+		amount += req_services[-1].price
+		
+		
+	new_booking = Booking(cid = bcustomer,spid = assigned_sp, timing = btime, category = bcategory, status = bstatus, amount = amount)
+	new_booking.save()
+	new_bookedfor = [] 
+	for s in req_services:
+		new_bookedfor.append(Bookedfor(bid = new_booking, sid = s))
+		new_bookedfor[-1].save() 
+	
+	return redirect(bookings, cid = kwargs['cid'])
+
 

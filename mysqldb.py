@@ -91,6 +91,8 @@ class Booking(models.Model):
     timing = models.IntegerField()
     category = models.CharField(max_length=5)
     status = models.CharField(max_length=1)
+    bdate = models.DateField()
+    amount = models.IntegerField()
 
     class Meta:
         managed = False
