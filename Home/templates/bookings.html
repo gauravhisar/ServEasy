@@ -25,9 +25,12 @@
   <link href="{% static 'Home/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
   <link href="{% static 'Home/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
   <link href="{% static 'Home/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'Home/css/order.css' %}">
+  
 
   <!-- Template Main CSS File -->
   <link href="{% static 'Home/css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'Home/css/styled.css' %}" rel="stylesheet">
 
 </head>
 
@@ -46,12 +49,8 @@
           <li><a class="nav-link scrollto" href="#services">Bookings</a></li>
           {% endif %}-->
           <li><a class="nav-link scrollto" href="/#about">About Us</a></li>
-          <!-- <li><a class="nav-link scrollto " href="#clients">Popular Service Providers</a></li> -->
-          <!-- <li><a class="nav-link scrollto" href="#counts">Some facts about us</a></li> -->
           <li><a class="nav-link scrollto" href="/#contact">Contact</a></li>
-          <!--{% if loggedin %}
-            <li><a class="nav-link scrollto" href="{% url 'customer_logout'  %}">Logout</a></li>
-          {% endif %}-->
+         
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -66,39 +65,36 @@
   <section id="hero" class="d-flex align-items-center justify-content-center">
     <div class="container" data-aos="fade-up">
 
-      <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
-        <div class="col-xl-6 col-lg-8">
-          <h1>Get your work done in a few clicks<span></span></h1>
-          <h2>SERVices made EASY</h2>
-        </div>
-      </div>
 
-      {% if  not loggedin %}
-        <div class="row gy-4 mt-5 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
-          <div class="col-xl-2 col-md-4">
-            <div class="icon-box">
-              <i class="ri-calendar-todo-line"></i>
-              <h3><a href="{% url 'customer_login' %}">I'am a customer</a></h3>
-            </div>
-          </div>
-          <div class="col-xl-2 col-md-4">
-            <div class="icon-box">
-              <i class="ri-paint-brush-line"></i>
-              <h3><a href="">I'm a service provider</a></h3>  {{rating}}
-            </div>
-          </div>
-        </div>
-      {% endif %}
-
-      {% for i in bnum %}
-        {{ i.cid }}
-        {{ i.category }}
-        {{ i.timing }}
-        {{ i.status }}
-      {% end for %}
-
-      
-
+        <h3 style="color: bisque;">Your Bookings</h3>
+        <p>
+            <table class="content-table">
+                <thead>
+                  <tr>
+                    <th style="color:rgb(241, 182, 103)">Timing</th>
+                    <th style="color:rgb(241, 182, 103)">Status</th>
+                    <th style="color:rgb(241, 182, 103)">Category</th>
+                    <th style="color:rgb(241, 182, 103)">Description</th>
+                    <th></th>
+                  </tr>
+                </thead>
+    
+            {% for eve in records %}
+    
+                <tbody>
+                    <tr>
+                    <!--<td><b style="color:black">{{eve.ev_id}}</b></td>-->
+                    <!--<td><b style="color:white" style="align-self: center;">{{eve.bid}}</b></td>-->
+                    <td><b style="color:white" style="align-self: center;">{{eve.timing}}</b></td>
+                    <td><b style="color:white" style="align-self: center;">{{eve.status}}</b></td>
+                    <td><b style="color:white" style="align-self: center;">{{eve.category}}</b></td>
+                    <td><b style="color:white" style="align-self: center;">{{eve.dscrptn}}</b></td>
+                    <!-- <td><b style="color:white">{{eve.category}}</b></td>
+                    <td><b style="color:white">{{eve.status}}</b></td> -->
+                    </tr>
+                </tbody>
+            {% endfor %}
+        </p>
     </div>
   </section><!-- End Hero -->
 
@@ -118,6 +114,9 @@
 
   <!-- Template Main JS File -->
   <script src="{% static 'Home/js/main.js' %}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src ="{% static 'Home/js/script.js' %}"></script>
+
 
 </body>
 
