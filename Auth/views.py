@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,reverse
 from Home.views import home
-from Auth.models import Customer
+from Home.models import Customer
 
 # Create your views here.
 loggedin_userid = None # Not of any use, will remove it later

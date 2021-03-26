@@ -21,6 +21,7 @@ dscrptn varchar(300), #description of service
 constraint pk_services primary key (sid) #sid is primary key
 ); 
 
+
 CREATE TABLE Provides( #Creating Provides table
 sid int auto_increment not null , #unique service id
 spid int, #unique service provider id
@@ -45,16 +46,18 @@ bid int not null auto_increment, # unique booking id
 spid int, # unique service provider id
 timing int not null,  #24 hour format # hour/minutes/seconds
 category varchar(5) not null, #category of service provider
-`status` char(1) not null,  #status of booking C-->cancelled D-->Done B-->Booked 
-constraint fk_bookings1 foreign key (cid) references Customers(cid),
-constraint fk_bookings2 foreign key (spid) references ServiceProviders(spid),
+`status` char(1) not null,  #status of booking C-->cancelled D-->Done B-->Booked
+bdate date default 20210225 not null,
+amount int default 200 not null,
+constraint fk_bookings1 foreign key (cid) references Customer(cid),
+constraint fk_bookings2 foreign key (spid) references ServiceProvider(spid),
 constraint pk_bookings1 primary key (bid) #bid is primary key
 );
 
 CREATE TABLE BOOKEDFOR(
 bid int not null, #booking id
 sid int not null, #service id
-constraint fk_bookedfor1 foreign key (sid) references Services(sid),
+constraint fk_bookedfor1 foreign key (sid) references Service(sid),
 constraint fk_bookedfor2 foreign key (bid) references Bookings(bid),
 constraint pk_bookedfor primary key (sid,bid) #primary key is a combination of sid and bid
 );
@@ -63,7 +66,7 @@ alter table ServiceProviders
 rename to ServiceProvider;  #ServiceProviders table renamed to ServiceProvider
 alter table Customers
 rename to Customer;   #Customers table renamed to Customer
-
+use serveasy;
 alter table Customer add column loggedin bool default False;
 alter table Services
 rename to Service;    #Services table renamed to Service
@@ -96,6 +99,23 @@ values(1,'CA','Repair a table, chair, rack, sofa, etc'),
 (8,'BW','Manicure, pedicure, makeup, facial, bleeching, etc'),
 (9,'SM','Haircut, Shaving Beard, etc'),
 (10,'SM','Facial, Bleeching, massage, etc');
+
+update service set dscrptn = "Repair a table or chair" where sid = 1;
+update service set dscrptn = "Double Bed Construction" where sid = 2;
+update service set dscrptn = 'Wiring and Fitting Repairs' where sid = 3;
+update service set dscrptn = "Installation of Buttons/Switches" where sid = 4;
+update service set dscrptn = "Pipeline Fixes" where sid = 5;
+update service set dscrptn = "Pipeline Installation" where sid = 6;
+update service set dscrptn = "Facial MakeUp and Bleaching" where sid = 7;
+update service set dscrptn = "Manicure and Pedicure" where sid = 8;
+update service set dscrptn = "Haircut" where sid = 9;
+update service set dscrptn = "Shaving and Beard Styling" where sid = 10;
+insert into service values
+(11, 'CA', 'Repair a Sofa',200),
+(12, 'EL', 'Fan Repair',200),
+(13, 'PL', "Water Tap installation/Fixes",200),
+(14, 'BW', "HairCut and Styling", '200'),
+(15, 'SM','Facial Bleaching', '200');
 
 select *
 from Service; #Displaying Service Table 
@@ -160,3 +180,11 @@ values(1,3),
 
 select *
 from BookedFor;  #Displaying BookedFor table
+
+use serveasy;
+alter table service add column price int default 100 not null;
+alter table booking add column bdate date default 20210225 not null;
+alter table booking add column amount int default 200 not null;
+SELECT * FROM serveasy.service;
+
+
