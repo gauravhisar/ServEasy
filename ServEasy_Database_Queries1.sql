@@ -186,5 +186,6 @@ alter table service add column price int default 100 not null;
 alter table booking add column bdate date default 20210225 not null;
 alter table booking add column amount int default 200 not null;
 SELECT * FROM serveasy.service;
+alter table booking modify column bdate timestamp default current_timestamp;
 
 

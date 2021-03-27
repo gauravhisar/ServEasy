@@ -138,7 +138,6 @@
                     {% for o in service_req%}
                     <div class = "service-details" name = "service_detail{{forloop.counter}}">
                     <input type="checkbox" class = "service-checkbox" name="service{{ forloop.counter }}" value={{o.sid}}>
-                        <!-- service{{ forloop.counter }} -->
                         <span class = "service--description">{{o.dscrptn}}</span>
                         <p class = "service--price">
                             <span>Price: ₹ </span>
@@ -151,9 +150,6 @@
 
                     {% if not loggedin%}
                     <p class= 'login_first'>Please Login First</p>
-                    <!-- <p id = 'login_first'>{{loginfirst}}</p> -->
-                    
-                    <!-- <span id = 'service_booking'>Book Now</span> -->
                     {%else%}
                     <p id = "serv-not-selected" class = 'login_first' style="visibility: hidden;">Please select a service</p>
                     {% endif%}
@@ -194,28 +190,27 @@
 
     })
 
+    // Total cost should be maniuplated as customer selects and deselects services
     const scheckboxes = document.querySelectorAll(".service-checkbox");
     var i;
     var tcost = 0;
 
+    // adding event listener to check boxes, every time they will be clicked validate_checkbox will be called
     for(i = 0;i<scheckboxes.length;i++){
       scheckboxes[i].addEventListener("change", validate_checkbox)
     }
   
-
+    // this function modifies Total Cost
     function validate_checkbox(){
       var serviceIndex = Number(this.name.charAt(this.name.length - 1))
-      console.log(serviceIndex)
       
       const price = Number(document.getElementsByName("priceof_" + serviceIndex)[0].innerHTML);
 
       if (scheckboxes[serviceIndex - 1].checked){
         tcost = tcost +  price;
-        //console.log(tcost, price);
       }
       else{
         tcost = tcost - price;
-        //console.log(tcost);
       }
       const totalcost = document.querySelector('#totalcost');
       totalcost.innerHTML = tcost

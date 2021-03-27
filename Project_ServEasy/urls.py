@@ -33,16 +33,15 @@ urlpatterns = [
     path('customer_signup_verification/',customer_signup_verification , name="customer_signup_verification"), # redirects to Home Page after verifying signup page, otherwise renders signup ppage again
     path('logout/<cid>/',customer_logout , name="customer_logout"), # redirects to dry Home page
 
-    # Services  (5)   
-    path('services/<servicename>/', service_details ,name="service"),
-    path('verified/<cid>/services/<servicename>/', service_details, name="service"),
+    # Service Pages
+    path('services/<servicename>/', service_details ,name="service"), # for a person who is not loggedin
+    path('verified/<cid>/services/<servicename>/', service_details, name="service"), # for a person who is loggedin
     
     # Service booking of customer
     path('verifybooking/<servicename>', verify_booking, name = "verify_booking"),# its is of no use, added this so that we donot get error
     path('verified/<cid>/verifybooking/<servicename>/', verify_booking, name = "verify_booking"), # redirects to booking page
 
     #Displaying Bookings of Customer
-    # path('bookings/', bookings ,name="bookings"),   
     path('verified/<cid>/bookings/', bookings, name="bookings"), # returns booking page
     
 
